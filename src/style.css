@@ -1,0 +1,56 @@
+:root {
+    color-scheme: light dark;
+    --special-text-color: rgba(255, 255, 0, 0.5);
+    --border-color: black;
+
+    --theme-background-color-main: white;
+    /* --theme-background-color-second: rgb(236, 236, 236); */
+    --theme-background-color-second: #e0e5ea;
+    --theme-background-color-second-back: #d0d5da;
+    --theme-text-color: black;
+}
+
+@media (prefers-color-scheme: dark) {
+    /* :root {
+        --theme-background-color-main: rgb(50, 50, 50);
+        --theme-background-color-second: rgb(60, 60, 60);
+        --theme-background-color-second-back: rgb(55, 55, 55);
+        --theme-text-color: white;
+
+        --special-text-color: hsla(60, 50%, 70%, 0.75);
+        --border-color: white;
+    } */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    
+    background-color: var(--theme-background-color-main);
+    color: var(--theme-text-color);
+}
+
+.special {
+    /* color: var(--special-text-color);
+    border: 1px solid var(--border-color); */
+}
+
+.data-grid {
+    width: 100%;
+}
+
+.data-editor {
+    height: auto !important;
+}
+
+.ant-layout-sider {
+    background-color: var(--theme-background-color-second);
+}
+
+.ant-layout-header {
+    background-color: var(--theme-background-color-main);
+}
+
+.ant-layout-content {
+    /* background-color: var(--theme-background-color-main); */
+}
