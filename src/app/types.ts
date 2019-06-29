@@ -33,4 +33,5 @@ export interface ICategory {
     name: string,
     counter: number,
     priority: number,
+    childrenTags?: string[],
 }

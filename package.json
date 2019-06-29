@@ -23,7 +23,9 @@
     "redux-form": "^8.2.0",
     "typescript": "^3.4.5"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "tslint": "^5.18.0"
+  },
   "scripts": {
     "dev": "node server.js",
     "build": "next build",

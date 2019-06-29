@@ -1,38 +1,38 @@
 import React from 'react'
 import { ICategory } from '../../app/types'
-// import Link from 'next/link'
 import ListItem from './ListItem'
 
-interface IProps {
-    categories: ICategory[]
-    showAddButton: boolean
+export interface ICategoryListProps {
+    items: ICategory[]
 }
 
-const CategoryList = (props: IProps) => (
-    <div>
-        <style jsx>{`
-            div {
-                padding: 10px;
-                // padding-left: 30px;
-            }
+const CategoryList: React.FC<ICategoryListProps> = (props) => {
+    return (
+        <div>
+            <style jsx>{`
+                div {
+                    padding: 10px;
+                }
 
-            ul {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-            }
-        `}</style>
+                ul {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                }
+            `}</style>
 
-        <ul>
-            {props.categories.map(x => (
-                <ListItem
-                    key={x.id}
-                    item={x}
-                    showAddButton={props.showAddButton}
-                />
-            ))}
-        </ul>
-    </div>
-)
+            <ul>
+                {props.items.map(x => (
+                    <ListItem
+                        key={x.id}
+                        showAddButton={false}
+                        item={x}
+                        childrenItems={x.childrenTags}
+                    />
+                ))}
+            </ul>
+        </div>
+    )
+}
 
 export default CategoryList
