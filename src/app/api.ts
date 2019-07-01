@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { ICode, ICategory } from './types'
-import { splitCode } from './lib';
 
 const BASE_URL = 'http://localhost:5000'
 
@@ -30,16 +29,6 @@ export async function getAllTags(): Promise<string[]> {
     const res = await axios.get(url('/search/tags'))
 
     return res.data['data']
-
-    const items = await getAllCodes()
-    const codes = items
-        .map(x => x.code)
-        .map(splitCode)
-        .flat()
-
-    return Array
-        .from(new Set(codes))
-        .sort()
 }
 
 export async function getCategories(): Promise<ICategory[]> {
