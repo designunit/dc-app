@@ -1,63 +1,18 @@
 import React, { useState } from 'react'
 import CodeTable from '../src/components/CodeTable'
 import { ICode, ICategory } from '../src/app/types'
-import { getAllCodes, getAllTags } from '../src/app/api'
 import { Layout } from 'antd'
 import Tags from '../src/components/Tags'
 import AppLayout from '../src/components/AppLayout'
 import CategoryList from '../src/components/CategoryList'
 import { filterItems } from '../src/app/search'
+import * as api from '../src/app/api'
 
 const { Header, Content } = Layout
 
-const categories: ICategory[] = [
-    {
-        "id": 2,
-        "prefix": "BRD",
-        "name": "Borders",
-        "counter": 1,
-        "priority": 1,
-        "childrenTags": ["MAT"]
-    },
-    {
-        "id": 3,
-        "prefix": "LGH",
-        "name": "Lightening",
-        "counter": 1,
-        "priority": 1,
-    },
-    {
-        "id": 4,
-        "prefix": "PAV",
-        "name": "Paving",
-        "counter": 1,
-        "priority": 1,
-    },
-    {
-        "id": 6,
-        "prefix": "EQP",
-        "name": "Equipment",
-        "counter": 1,
-        "priority": 1,
-    },
-    {
-        "id": 7,
-        "prefix": "FNC",
-        "name": "Fence",
-        "counter": 1,
-        "priority": 1,
-    },
-    {
-        "id": 8,
-        "prefix": "GRN",
-        "name": "Green",
-        "counter": 1,
-        "priority": 1,
-    },
-]
-
 interface IProps {
     codeItems: ICode[]
+    categories: ICategory[]
     allTags: string[]
 }
 
@@ -70,7 +25,7 @@ const Index = (props: IProps) => {
         <AppLayout
             sideComponent={(
                 <CategoryList
-                    items={categories}
+                    items={props.categories}
                 />
             )}
         >
@@ -128,10 +83,12 @@ const Index = (props: IProps) => {
 }
 
 Index.getInitialProps = async () => {
-    const codeItems = await getAllCodes()
-    const allTags = await getAllTags()
+    const categories = await api.getCategories()
+    const codeItems = await api.getAllCodes()
+    const allTags = await api.getAllTags()
 
     return {
+        categories,
         codeItems,
         allTags,
     }

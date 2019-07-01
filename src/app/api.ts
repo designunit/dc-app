@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ICode } from './types';
+import { ICode, ICategory } from './types'
 import { splitCode } from './lib';
 
 const BASE_URL = 'http://localhost:5000'
@@ -40,4 +40,51 @@ export async function getAllTags(): Promise<string[]> {
     return Array
         .from(new Set(codes))
         .sort()
+}
+
+export async function getCategories(): Promise<ICategory[]> {
+    const tags = [
+        {
+            "prefix": "BRD",
+            "name": "Borders",
+        },
+        {
+            "prefix": "LGH",
+            "name": "Lightening",
+        },
+        {
+            "prefix": "PAV",
+            "name": "Paving",
+        },
+        {
+            "prefix": "EQP",
+            "name": "Equipment",
+        },
+        {
+            "prefix": "FNC",
+            "name": "Fence",
+        },
+        {
+            "prefix": "GRN",
+            "name": "Green",
+        },
+    ]
+
+    const categories: ICategory[] = []
+
+    let counter = 0
+    for (const tag of tags) {
+        const children = await getTagChildren(tag.prefix)
+        categories.push({
+            ...tag,
+            id: counter,
+            counter: 1,
+            priority: 1,
+            childrenTags: children,
+        })
+
+        counter ++
+    }
+
+    return categories
 }
