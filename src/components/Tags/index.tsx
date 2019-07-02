@@ -1,6 +1,5 @@
 import React from 'react'
 import { Select } from 'antd'
-import { splitCode } from '../../app/lib'
 
 const Option = Select.Option;
 
@@ -41,11 +40,3 @@ export default (props: IProps<string[]>) => (
         ))}
     </Select>
 )
-
-export function createTags(value: string): string[] {
-    return splitCode(value)
-    //     .map(x => ({
-    //     title: x,
-    //     value: x,
-    // }))
-}
