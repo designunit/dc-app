@@ -1,28 +1,30 @@
 import React from 'react'
-import { ICategory } from '../../app/types'
+import { ICategory, ICode } from '../../app/types'
 import { Button } from 'antd'
+import CodeTagList from '../CodeTagList'
 
 interface IProps {
     item: ICategory
-    childrenItems: string[]
+    selected: boolean
+    childrenItems: ICode[]
+    renderFooter?(item:ICategory): React.ReactNode
+    // onChangeChildrenItem(value: ICode, checked: boolean): void 
     showAddButton: boolean
+    onClick(event: React.MouseEvent): void
 }
 
-const ListItem = (props: IProps) => (
+const ListItem: React.FC<IProps> = props => (
     <li>
         <style jsx>{`
             li {
+                --background-color: var(${props.selected ? '--theme-color-dark' : '--theme-background-color-second-back'});
+                --color: var(${props.selected ? '--theme-color-light' : '--theme-text-color'});
+
                 margin-bottom: 10px;
             }
 
             .main {
                 display: flex;
-                font-size: 1.25em;
-                background-color: var(--theme-background-color-second-back);
-                color: var(--theme-text-color);
-
-                padding: 5px 5px;
-                padding-left: 10px;
             }
 
             span {
@@ -34,15 +36,35 @@ const ListItem = (props: IProps) => (
                 display: inline-block;
                 user-select: none;
             }
+
+            button {
+                cursor: pointer;
+
+                flex: 1;
+                text-align: left;
+
+                font-size: 1.25em;
+                background-color: var(--background-color);
+                color: var(--color);
+
+                padding: 5px 5px;
+                padding-left: 10px;
+
+                border: none;
+            }
+
+            button:hover {
+                filter: brightness(95%);
+            }
         `}</style>
 
         <div className={'main'}>
-            <div style={{
-                flex: 1,
-            }}>
+            <button
+                onClick={props.onClick}
+            >
                 <strong>{props.item.prefix}</strong>
                 <span>{props.item.name}</span>
-            </div>
+            </button>
 
             <div>
                 {!props.showAddButton ? null : (
@@ -56,9 +78,19 @@ const ListItem = (props: IProps) => (
             </div>
         </div>
 
-        {!props.childrenItems ? null : props.childrenItems.map(x => (
-            <span key={x}>{x}</span>
-        ))}
+        {!props.renderFooter ? null : (
+            <footer>
+                {props.renderFooter(props.item)}
+            </footer>
+        )}
+        {/* <div>
+            {!props.childrenItems ? null : (
+                <CodeTagList
+                    items={props.childrenItems}
+                    onChange={props.onChangeChildrenItem}
+                />
+            )}
+        </div> */}
     </li>
 )
 

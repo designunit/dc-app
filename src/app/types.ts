@@ -3,6 +3,7 @@
 type Unit = String
 
 export interface ICode {
+    id: string
     alias: string
 
     // collections: any[]
@@ -33,5 +34,5 @@ export interface ICategory {
     name: string,
     counter: number,
     priority: number,
-    childrenTags?: string[],
+    childrenTags?: ICode[],
 }

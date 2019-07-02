@@ -114,6 +114,14 @@ export default React.memo((props: IProps) => {
     //     //     accessor: 'friend.age'
     //     // },
     // ]
+
+    if (!props.data.length) {
+        return (
+            <div>
+                no data
+            </div>
+        )
+    }
  
     return (
         <ReactTable

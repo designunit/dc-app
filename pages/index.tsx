@@ -18,14 +18,28 @@ interface IProps {
 
 const Index = (props: IProps) => {
     const [selectedTags, setSelectedTags] = useState([])
+    // const [selectedSidebar, setSelectedSidebar] = useState([])
+    // onChangeChildrenItem(value: ICode, checked: boolean): void 
+
+    // const selection = {
+    //     category: [1],
+    //     tags: [1, 3]
+    // }
+
+    // const category = props.categories[selectedCategories[0]]
+    // const st = [category.prefix]
 
     const matchedCodeItems = filterItems(props.codeItems, selectedTags)
+    // const matchedCodeItems = props.codeItems
 
     return (
         <AppLayout
             sideComponent={(
                 <CategoryList
                     items={props.categories}
+                    selection={selectedTags}
+                    onSelect={setSelectedTags}
+                    // onChangeChildrenItem={props.onChangeChildrenItem}
                 />
             )}
         >

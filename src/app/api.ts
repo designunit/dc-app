@@ -61,15 +61,30 @@ export async function getCategories(): Promise<ICategory[]> {
 
     const categories: ICategory[] = []
 
+    const names = {
+        MAT: 'Material',
+        COL: 'Color',
+        PAT: 'Pattern',
+        PRD: 'Production',
+        BST: 'Base Type',
+    }
+
     let counter = 0
     for (const tag of tags) {
         const children = await getTagChildren(tag.prefix)
+        const codes: ICode[] = children.map((x, i) => ({
+            id: `${i}`,
+            title: x in names ? names[x] : x,
+            alias: x,
+            code: x,
+            tags: [],
+        }))
         categories.push({
             ...tag,
             id: counter,
             counter: 1,
             priority: 1,
-            childrenTags: children,
+            childrenTags: codes,
         })
 
         counter ++
