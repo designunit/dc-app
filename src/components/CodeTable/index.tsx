@@ -39,7 +39,7 @@ const imgUrl = (v: string): string => {
     return `/static/img/P_C_${x}.jpg`
 }
 
-export default (props: IProps) => {
+export default React.memo((props: IProps) => {
     const fields: String[] = [
         'alias',
         'code',
@@ -123,4 +123,4 @@ export default (props: IProps) => {
             defaultPageSize={props.data.length}
         />
     )
-}
+})
