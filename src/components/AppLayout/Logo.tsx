@@ -1,6 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
 
+import Svg from '../../assets/dc_logo_full.svg'
+
 const Logo = () => (
     <div>
         <style jsx>{`
@@ -11,15 +13,12 @@ const Logo = () => (
             span { 
                 display: flex;
 
-                border: 7px solid rgb(50, 50, 50);
-
                 color: rgb(50, 50, 50);
                 font-family: sans-serif;
                 font-weight: bold;
                 font-size: 1.75em;
 
                 margin: 10px;
-                padding: 10px 15px;
             }
 
             strong {
@@ -31,7 +30,7 @@ const Logo = () => (
         <Link href="/">
             <a>
                 <span>
-                    <strong>DESIGN::CODE</strong>
+                    <Svg />
                 </span>
             </a>
         </Link>
