@@ -1,14 +1,12 @@
 import React from 'react'
 import { ICategory, ICode } from '../../app/types'
 import { Button } from 'antd'
-import CodeTagList from '../CodeTagList'
 
 interface IProps {
     item: ICategory
     selected: boolean
     childrenItems: ICode[]
     renderFooter?(item:ICategory): React.ReactNode
-    // onChangeChildrenItem(value: ICode, checked: boolean): void 
     showAddButton: boolean
     onClick(event: React.MouseEvent): void
 }
@@ -83,14 +81,6 @@ const ListItem: React.FC<IProps> = props => (
                 {props.renderFooter(props.item)}
             </footer>
         )}
-        {/* <div>
-            {!props.childrenItems ? null : (
-                <CodeTagList
-                    items={props.childrenItems}
-                    onChange={props.onChangeChildrenItem}
-                />
-            )}
-        </div> */}
     </li>
 )
 
