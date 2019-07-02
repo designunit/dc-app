@@ -1,4 +1,4 @@
-import { arraySplit, arrayPrune } from './array'
+import { arraySplit, arrayPrune, isSubsetOf } from './array'
 
 describe('array', () => {
     describe('arraySplit', () => {
@@ -17,6 +17,15 @@ describe('array', () => {
             const others = arrayPrune(sample, 1)
 
             expect(others).toEqual([2, 3, 4, 5, 6, 7, 8, 9])
+        })
+    })
+
+    describe('isSubsetOf', () => {
+        it('should properly prune array', () => {
+            const set = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9])
+            const subset = new Set([1, 2, 3])
+            
+            expect(isSubsetOf(set, subset)).toBeTruthy
         })
     })
 })

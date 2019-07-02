@@ -9,3 +9,9 @@ export function arraySplit<T>(items: T[], filter: (item: T) => boolean): [T[], T
 export function arrayPrune<T>(items: T[], item: T): T[]{
     return items.filter(x => x !== item)
 }
+
+export function isSubsetOf<T>(set: Set<T>, subset: Set<T>): boolean {
+    const union = new Set([...set, ...subset])
+
+    return union.size === set.size
+}
