@@ -13,7 +13,7 @@ const CodeTagList: React.FC<ICodeTagListProps> = props => {
         id: x.id,
         name: x.title,
         value: x,
-        checked: props.selection.includes(x.code),
+        checked: props.selection.includes(x.id),
     }))
 
     return (

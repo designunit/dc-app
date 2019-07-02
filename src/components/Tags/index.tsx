@@ -10,25 +10,22 @@ interface ITag<T> {
 
 interface IProps<T> {
     disabled?: boolean
-    // items: ITag<string>[]
     items: string[]
     value: string[]
+    allowNew: boolean   
     onChange?: (value: T, option: React.ReactElement<any> | React.ReactElement<any>[]) => void
 }
 
 export default (props: IProps<string[]>) => (
     <Select
         disabled={props.disabled}
-        // size={'small'}
-        // mode="tags"
-        mode={'multiple'}
+        mode={props.allowNew ? 'tags' : 'multiple'}
         style={{
             width: '100%'
         }}
         placeholder={'Search'}
         onChange={props.onChange}
         value={props.value}
-        // disabled={true}
     >
         {props.items.map((x, i) => (
             <Option

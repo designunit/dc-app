@@ -5,8 +5,9 @@ import { Layout } from 'antd'
 import Tags from '../src/components/Tags'
 import AppLayout from '../src/components/AppLayout'
 import CategoryList from '../src/components/CategoryList'
-import { filterItems } from '../src/app/search'
+import { getCodeParts } from '../src/app/lib/code'
 import * as api from '../src/app/api'
+import { filterCodesByKeywords } from '../src/app/lib/search'
 
 const { Header, Content } = Layout
 
@@ -17,7 +18,7 @@ interface IProps {
 }
 
 const Index = (props: IProps) => {
-    const [selectedTags, setSelectedTags] = useState([])
+    const [searchKeywords, setSearchKeywords] = useState(new Set<string>())
     // const [selectedSidebar, setSelectedSidebar] = useState([])
     // onChangeChildrenItem(value: ICode, checked: boolean): void 
 
@@ -29,16 +30,15 @@ const Index = (props: IProps) => {
     // const category = props.categories[selectedCategories[0]]
     // const st = [category.prefix]
 
-    const matchedCodeItems = filterItems(props.codeItems, selectedTags)
-    // const matchedCodeItems = props.codeItems
+    const matchedCodeItems = filterCodesByKeywords(props.codeItems, searchKeywords)
 
     return (
         <AppLayout
             sideComponent={(
                 <CategoryList
                     items={props.categories}
-                    selection={selectedTags}
-                    onSelect={setSelectedTags}
+                    selection={searchKeywords}
+                    onSelect={setSearchKeywords}
                     // onChangeChildrenItem={props.onChangeChildrenItem}
                 />
             )}
@@ -60,12 +60,12 @@ const Index = (props: IProps) => {
 
                     <div>
                         <Tags
+                            allowNew={true}
                             items={props.allTags}
-                            value={selectedTags}
-                            onChange={v => {
-                                console.log(v)
-                                setSelectedTags(v)
-                            }}
+                            value={[...searchKeywords]}
+                            onChange={xs => setSearchKeywords(new Set(
+                                xs.flatMap(getCodeParts)
+                            ))}
                         />
 
                         {/* <Button

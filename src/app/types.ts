@@ -4,13 +4,13 @@ type Unit = String
 
 export interface ICode {
     id: string
-    alias: string
+    alias?: string
 
     // collections: any[]
     // extends: ICode
     title: string
-    code: string
-    tags: string[]
+    code: string[]
+    keywords: Set<string>
     // description: string
     // comment: string
     // block: boolean

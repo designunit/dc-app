@@ -1,5 +1,7 @@
-function getCodePrefix(code: string): string {
-    const prefix = /([a-zA-Z]+)/.exec(code)
+const codeTagPattern = /^([a-zA-Z]+)(\d+)?/
+
+export function getTagPrefix(code: string): string {
+    const prefix = codeTagPattern.exec(code)
 
     if (!prefix) {
         return null
@@ -8,7 +10,7 @@ function getCodePrefix(code: string): string {
     return prefix[1]
 }
 
-function getCodeIndex(code: string): number {
+export function getCodeIndex(code: string): number {
     const prefix = /([\d]+)/.exec(code)
 
     if (!prefix) {
@@ -19,7 +21,7 @@ function getCodeIndex(code: string): number {
 }
 
 function fixCode(code: string): string {
-    const prefix = getCodePrefix(code)
+    const prefix = getTagPrefix(code)
     const index = getCodeIndex(code)
 
     return index
@@ -38,13 +40,13 @@ function changeCodeIndex(code: string, index: number): string {
 }
 
 export function splitCode(code: string): string[] {
-    const parts = code.split('-')
+    const parts = getCodeParts(code)
 
     let prefix = ''
 
     return parts
         .map((x, i) => {
-            const currentPrefix = getCodePrefix(x)
+            const currentPrefix = getTagPrefix(x)
 
             if (currentPrefix) {
                 prefix = currentPrefix
@@ -54,10 +56,16 @@ export function splitCode(code: string): string[] {
 
             if (!isNaN(n)) {
                 return prefix + x
-                // return changeCodeIndex(parts[i - 1], n)
             }
 
             return x
         })
         .map(fixCode)
+}
+
+/**
+ * 'PAV-MAT-COL' -> ['PAV', 'MAT', 'COL']
+ */
+export function getCodeParts(code: string): string[] {
+    return code.split('-')
 }

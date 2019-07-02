@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactTable from 'react-table'
 import { ICode } from 'src/app/types'
-import Tags, { createTags } from '../Tags'
+import Tags from '../Tags'
 
 import 'react-table/react-table.css'
 
@@ -81,8 +81,8 @@ export default React.memo((props: IProps) => {
     columns[2].width = 550
     columns[2].Cell = (props: any) => (
         <Tags
-            items={createTags(props.value)}
-            value={createTags(props.value)}
+            items={props.value}
+            value={props.value}
             disabled={true}
         />
     )
@@ -127,8 +127,9 @@ export default React.memo((props: IProps) => {
         <ReactTable
             data={props.data}
             columns={columns}
-            showPagination={false}
-            defaultPageSize={props.data.length}
+            showPagination={true}
+            // defaultPageSize={props.data.length}
+            defaultPageSize={10}
         />
     )
 })

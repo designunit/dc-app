@@ -4,7 +4,7 @@ import ListItem from './ListItem'
 import CodeTagList from '../CodeTagList'
 import { arraySplit, arrayPrune } from '../../lib/array'
 
-type Selection = string[]
+type Selection = Set<string>
 
 export interface ICategoryListProps {
     items: ICategory[]
@@ -14,7 +14,7 @@ export interface ICategoryListProps {
 
 const CategoryList: React.FC<ICategoryListProps> = (props) => {
     const topLevelTags = props.items.map(x => x.prefix)
-    const [topSelection, subSelection] = arraySplit(props.selection, s => topLevelTags.includes(s))
+    const [topSelection, subSelection] = arraySplit([...props.selection], s => topLevelTags.includes(s))
 
     return (
         <div>
@@ -39,18 +39,18 @@ const CategoryList: React.FC<ICategoryListProps> = (props) => {
                         childrenItems={item.childrenTags}
                         selected={topSelection.includes(item.prefix)}
                         onClick={() => {
-                            props.onSelect([item.prefix])
+                            props.onSelect(new Set([item.prefix]))
                         }}
                         renderFooter={x => (
                             <CodeTagList
                                 items={x.childrenTags}
                                 selection={topSelection.includes(x.prefix) ? subSelection : []}
                                 onChange={(codeItem, checked) => {
-                                    const code = codeItem.code
-                                    props.onSelect(checked
+                                    const code = codeItem.id
+                                    props.onSelect(new Set(checked
                                         ? [x.prefix, ...subSelection, code]
                                         : [x.prefix, ...arrayPrune(subSelection, code)]
-                                    )
+                                    ))
                                 }}
                             />
                         )}
