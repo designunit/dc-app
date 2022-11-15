@@ -28,7 +28,7 @@
     "@types/jest": "^24.0.15",
     "@types/styled-jsx": "^2.2.8",
     "jest": "^29.3.1",
-    "ts-jest": "^24.0.2",
+    "ts-jest": "^29.0.3",
     "tslint": "^5.18.0"
   },
   "scripts": {
